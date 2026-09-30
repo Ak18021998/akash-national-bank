@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Customer {
@@ -12,10 +15,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
-    private String email;
-    private String mobile;
-    private String password;
+    @NotBlank(message = "Full name is required")
+private String fullName;
+    @Email(message = "Invalid email format")
+@NotBlank(message = "Email is required")
+private String email;
+    @NotBlank(message = "Mobile number is required")
+@Pattern(
+    regexp = "^[6-9][0-9]{9}$",
+    message = "Invalid mobile number"
+)
+private String mobile;
+    @NotBlank(message = "Password is required")
+private String password;
     private String dob;
     private String customerId;
 

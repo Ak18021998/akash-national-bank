@@ -5,6 +5,7 @@ import akash_national_bank.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import akash_national_bank.dto.CustomerResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -16,20 +17,23 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-   @PostMapping
-public CustomerResponse createCustomer(@RequestBody Customer customer){
+    @PostMapping
+    public CustomerResponse createCustomer(
+            @Valid @RequestBody Customer customer) {
+
         return customerService.saveCustomer(customer);
     }
 
- @GetMapping
-public List<CustomerResponse> getAllCustomers() {
-    return customerService.getAllCustomers();
-}
-@PostMapping("/login")
-public CustomerResponse login(
-        @RequestParam String customerId,
-        @RequestParam String password) {
+    @GetMapping
+    public List<CustomerResponse> getAllCustomers() {
+        return customerService.getAllCustomers();
+    }
 
-    return customerService.login(customerId, password);
-}
+    @PostMapping("/login")
+    public CustomerResponse login(
+            @RequestParam String customerId,
+            @RequestParam String password) {
+
+        return customerService.login(customerId, password);
+    }
 }

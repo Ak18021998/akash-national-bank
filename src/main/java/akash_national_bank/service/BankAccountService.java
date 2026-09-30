@@ -31,7 +31,7 @@ public class BankAccountService {
         this.transactionRepository = transactionRepository;
     }
 
-    public BankAccount saveBankAccount(BankAccount bankAccount) {
+   public BankAccountResponse saveBankAccount(BankAccount bankAccount) {
 
         if (bankAccount.getAccountNumber() == null
                 || bankAccount.getAccountNumber().isBlank()) {
@@ -61,7 +61,18 @@ public class BankAccountService {
             throw new DuplicateResourceException("Account number already exists");
         }
 
-        return bankAccountRepository.save(bankAccount);
+        BankAccount savedAccount = bankAccountRepository.save(bankAccount);
+
+return new BankAccountResponse(
+        savedAccount.getId(),
+        savedAccount.getAccountNumber(),
+        savedAccount.getAccountType(),
+        savedAccount.getBalance(),
+        savedAccount.getBranch(),
+        savedAccount.getCustomer().getId(),
+        savedAccount.getCustomer().getFullName()
+);
+
     }
 
     @Transactional

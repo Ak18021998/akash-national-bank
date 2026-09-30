@@ -7,6 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+
 
 @Entity
 public class BankAccount {
@@ -15,10 +18,14 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountNumber;
-    private String accountType;
-    private double balance;
-    private String branch;
+    @NotBlank(message = "Account number is required")
+private String accountNumber;
+    @NotBlank(message = "Account type is required")
+private String accountType;
+    @PositiveOrZero(message = "Balance cannot be negative")
+private double balance;
+    @NotBlank(message = "Branch is required")
+private String branch;
 
     @ManyToOne
     private Customer customer;
