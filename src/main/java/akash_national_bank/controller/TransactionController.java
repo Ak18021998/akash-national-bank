@@ -16,10 +16,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping
-    public Transaction createTransaction(@RequestBody Transaction transaction) {
-        return transactionService.saveTransaction(transaction);
-    }
+    
     @GetMapping("/account/{accountId}")
 public List<TransactionResponse> getTransactionsByAccount(@PathVariable Long accountId) {
     return transactionService.getTransactionsByAccount(accountId);
