@@ -1,6 +1,5 @@
 package akash_national_bank.service;
 
-import akash_national_bank.transaction.Transaction;
 import akash_national_bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,10 +21,6 @@ public class TransactionService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
-
     public List<TransactionResponse> getTransactionsByAccount(Long accountId) {
 
         bankAccountRepository.findById(accountId)
@@ -40,8 +35,7 @@ public class TransactionService {
                         transaction.getDescription(),
                         transaction.getStatus(),
                         transaction.getType(),
-                        transaction.getBankAccount().getId()
-                ))
+                        transaction.getBankAccount().getId()))
                 .toList();
     }
 }
