@@ -17,6 +17,9 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    // =========================
+    // CREATE CUSTOMER
+    // =========================
     @PostMapping
     public CustomerResponse createCustomer(
             @Valid @RequestBody Customer customer) {
@@ -24,16 +27,36 @@ public class CustomerController {
         return customerService.saveCustomer(customer);
     }
 
+    // =========================
+    // GET ALL CUSTOMERS
+    // =========================
     @GetMapping
     public List<CustomerResponse> getAllCustomers() {
+
         return customerService.getAllCustomers();
     }
 
+    // =========================
+    // LOGIN
+    // =========================
     @PostMapping("/login")
     public CustomerResponse login(
             @RequestParam String customerId,
             @RequestParam String password) {
 
         return customerService.login(customerId, password);
+    }
+
+    // =========================
+    // RESET PASSWORD
+    // =========================
+    @PostMapping("/reset-password")
+    public String resetPassword(
+            @RequestParam String customerId,
+            @RequestParam String newPassword) {
+
+        customerService.resetPassword(customerId, newPassword);
+
+        return "Password reset successfully";
     }
 }
